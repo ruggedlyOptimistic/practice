@@ -2,7 +2,7 @@ import socket
 
 def start_server():
     server_ip = "0.0.0.0"  # Listen on all interfaces
-    port = 12345  # Choose a port number
+    port = 4560  # Choose a port number
     buffer_size = 1024  # Max size of messages
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
