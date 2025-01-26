@@ -5,20 +5,24 @@ def start_server():
     port = 4560  # Choose a port number
     buffer_size = 1024  # Max size of messages
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
-        server_socket.bind((server_ip, port))
-        server_socket.listen(1)  # Allow one connection at a time
-        print(f"Server is listening on {server_ip}:{port}...")
+    try:
 
-        conn, addr = server_socket.accept()  # Accept a connection
-        print(f"Connection from {addr}")
-
-        while True:
-            data = conn.recv(buffer_size)
-            if not data:
-                break
-            print(f"Received: {data.decode()}")
-            conn.sendall(b"Message received!")
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+            server_socket.bind((server_ip, port))
+            server_socket.listen(1)  # Allow one connection at a time
+            print(f"Server is listening on {server_ip}:{port}...")
+    
+            conn, addr = server_socket.accept()  # Accept a connection
+            print(f"Connection from {addr}")
+    
+            while True:
+                data = conn.recv(buffer_size)
+                if not data:
+                    break
+                print(f"Received: {data.decode()}")
+                conn.sendall(b"Message received!")
+    except KeyboardInterrupt:
+        print("Closing server side...")
 
 if __name__ == "__main__":
     start_server()
